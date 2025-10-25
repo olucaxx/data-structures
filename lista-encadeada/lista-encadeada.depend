@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1761349777 source:c:\users\aula\documents\lista-encadeada\main.c
+	<stdio.h>
+	<stdlib.h>
+	"lista.h"
+
+1761349751 source:c:\users\aula\documents\lista-encadeada\lista.c
+	"lista.h"
+	<stdlib.h>
+	<stdio.h>
+
+1761349379 c:\users\aula\documents\lista-encadeada\lista.h
+
+1761352995 source:c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\lista.c
+	"lista.h"
+	<stdlib.h>
+	<stdio.h>
+
+1761352651 c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\lista.h
+
+1761354609 source:c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+
+1761354875 source:c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\linkedlist.c
+	"LinkedList.h"
+	<stdlib.h>
+	<stdio.h>
+
+1761354797 c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\linkedlist.h
+
