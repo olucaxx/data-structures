@@ -4,9 +4,10 @@
 
 int main() {
     LinkedList *l = create();
-    for(int i = 100; i > 0; i--) appendLast(l, i);
+    for(int i = 0; i < 10; i++) appendLast(l, i);
 
-    printf("%d", length(l));
+    printf("%d\n", removeValue(l, 1));
+    print(l);
 
     destroy(l); // sempre destruir depois de terminar
 }

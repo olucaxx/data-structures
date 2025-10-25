@@ -30,3 +30,15 @@
 
 1761354797 c:\users\aluno\downloads\lista-encadeada-20251025t003705z-1-001\lista-encadeada\linkedlist.h
 
+1761411384 source:c:\users\lucas\documents\data-structures\lista-encadeada\main.c
+	<stdio.h>
+	<stdlib.h>
+	"LinkedList.h"
+
+1761340396 c:\users\lucas\documents\data-structures\lista-encadeada\linkedlist.h
+
+1761411365 source:c:\users\lucas\documents\data-structures\lista-encadeada\linkedlist.c
+	"LinkedList.h"
+	<stdlib.h>
+	<stdio.h>
+

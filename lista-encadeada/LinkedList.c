@@ -90,31 +90,23 @@ int destroy(LinkedList *l) {
 
 void print(LinkedList *l) {
     Node *currentNode;
-
-    if (l->head == NULL) {
-        printf("Lista vazia!\n");
-        return;
-    }
-
     currentNode = l->head;
 
     while(currentNode != NULL) {
         printf("%d -> ", currentNode->value);
         currentNode = currentNode->next;
     }
+
     printf("NULL\n");
 }
 
 int length(LinkedList *l) {
     Node *currentNode;
     int counter = 0;
-
-    if (l->head == NULL) return 0; // vazia
-
     currentNode = l->head;
 
-    while(currentNode != NULL) {
-        counter++;
+    while(currentNode != NULL) { // igual a logica de imprimir a lista
+        counter++; // vai aumentando o contador ate achar null
         currentNode = currentNode->next;
     }
 
@@ -122,22 +114,53 @@ int length(LinkedList *l) {
 }
 
 int insertvalue(LinkedList *l, int index, int value) {
-    Node* currentNode, newNode, aux, aaux;
+    Node *currentNode, *newNode, *aux;
     int currentIndex;
 
-    if(index > length(l)) return -1; // insercao em uma posicao inexistente
+    if(index > length(l)) return -1; // ja valida a insercao em uma posicao inexistente, piora um pouco o tempo de exec
 
+    newNode = malloc(sizeof(Node)); // alocamos um espaco na memoria para o novo no
     newNode->value = value; // armazenamos nosso novo valor
     currentNode = l->head; // vamos referenciar o primeiro elemento com o no atual
     currentIndex = 0; // posicao zero, inicio
 
+    index -= 1; // vamos reduzir o index em 1 pois estamos atras de selecionar o no que aponta para a pos desejada
     while(currentIndex < index) { // se zero for o index ele nem roda o while
         currentIndex++;
         currentNode = currentNode->next;
     }
 
-    aux = currentNode; // guardamos o valor do no atual
-    aaux = aux->next; // guardos o valor do prox no auxiliar do auxiliar
-    currentNode = newNode; // substituimos o no atual pelo novo valor
-    currentNode->next = aux; // substituimos o prox no pelo antigo atual, armazenado em aux
+    aux = currentNode->next;
+    currentNode->next = newNode;
+    newNode->next = aux;
+
+    return 0;
+}
+
+int removeValue(LinkedList *l, int index) {
+    Node *currentNode,*aux;
+    int currentIndex;
+
+    if(index >= length(l) | length < 0) return -1; // ja valida a remocao de uma pos invalida
+
+    currentNode = l->head; // comecamos do inicio ne
+    currentIndex = 0; // posicao zero, inicio
+
+    if(index == 0) { // caso seja o primeiro elemento
+        l->head = currentNode->next; // temos que alterar para onde a head aponta
+        free(currentNode);
+        return 0;
+    }
+
+    index -= 1; // vamos reduzir o index em 1 pois estamos atras de selecionar o no que aponta para a pos desejada
+    while(currentIndex < index) { // se zero for o index ele nem roda o while
+        currentIndex++;
+        currentNode = currentNode->next;
+    }
+
+    aux = currentNode->next; // armazenamos o valor do prox
+    currentNode->next = currentNode->next->next; // fazemos o atual apontar para onde o prox apontava
+    free(aux); // liberamos a memoria do antigo no
+
+    return 0;
 }
