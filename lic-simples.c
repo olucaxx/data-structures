@@ -1,22 +1,40 @@
 #include <stdio.h>
+#include <locale.h>
 #include <stdlib.h>
 
-typedef struct no {
+typedef struct no{
     int valor;
     struct no *prox;
-} no;
+}no;
 
-typedef struct {
+typedef struct{
     no *inicio;
-} lista;
+}lista;
 
-lista* criar() {
-    lista *l = malloc(sizeof(lista));
+lista *criar(){
+    lista *l;
+
+    l = malloc(sizeof(lista));
     l->inicio = NULL;
     return l;
 }
 
-void inserirInicio(lista *l, int v) {
+void exibir(lista *l){
+    if(l->inicio == NULL){
+      printf("Lista Vazia \n");
+    }else{
+        no *aux;
+
+        aux = l->inicio;
+        do{
+            printf("%d -> ", aux->valor);
+            aux = aux->prox;
+        }while(aux != l->inicio);
+        printf("(inicio)\n");
+    }
+}
+
+void inserirInicio(lista *l, int v){
     no *n = malloc(sizeof(no));
     n->valor = v;
     
@@ -34,7 +52,7 @@ void inserirInicio(lista *l, int v) {
     l->inicio = n;
 }
 
-void inserirFim(lista *l, int v) {
+void inserirFim(lista *l, int v){
     no *n = malloc(sizeof(no));
     n->valor = v;
 
@@ -51,7 +69,7 @@ void inserirFim(lista *l, int v) {
     n->prox = l->inicio;
 }
 
-void removerInicio(lista *l) {
+void removerInicio(lista *l){
     if(l->inicio == NULL) return;
 
     if(l->inicio->prox == l->inicio) {
@@ -70,7 +88,7 @@ void removerInicio(lista *l) {
     free(temp);
 }
 
-void removerFim(lista *l) {
+void removerFim(lista *l){
     if(l->inicio == NULL) return;
 
     if(l->inicio->prox == l->inicio) {
@@ -91,34 +109,22 @@ void removerFim(lista *l) {
     free(aux);
 }
 
-void exibir(lista *l) {
-    if(l->inicio == NULL) {
-        printf("lista vazia\n");
-        return;
-    }
-
-    no *aux = l->inicio;
-    do {
-        printf("%d -> ", aux->valor);
-        aux = aux->prox;
-    } while(aux != l->inicio);
-    printf("(inicio)\n");
-}
-
-void atualizar(lista *l, int antigo, int novo) {
+void atualizar(lista *l, int antigo, int novo){
     if(l->inicio == NULL) return;
 
     no *aux = l->inicio;
     do {
         if(aux->valor == antigo) {
             aux->valor = novo;
-            // return; // retirar o comentário define se será todos ou apenas o primeiro elemento
+            return; // comentar isso faz alterar todos os elementos correspondentes
         }
         aux = aux->prox;
     } while(aux != l->inicio);
+    
+    printf("Valor não encontrado.\n");
 }
 
-void destruir(lista *l) {
+void destruir(lista *l){
     if(l->inicio == NULL) {
         free(l);
         return;
@@ -136,24 +142,63 @@ void destruir(lista *l) {
     free(l);
 }
 
-void main() {
-    lista *l = criar();
+void main(){
+    setlocale(LC_ALL, "Portuguese");
 
-    inserirInicio(l, 3);
-    inserirInicio(l, 2);
-    inserirFim(l, 4);
-    inserirFim(l, 4);
+    lista *l;
+    int op, valor, valor_novo;
 
-    exibir(l);
+    l = criar();
 
-    removerInicio(l);
-    exibir(l);
-
-    atualizar(l, 4, 11);
-    exibir(l);
-
-    removerFim(l);
-    exibir(l);
-
-    destruir(l);
+    do{
+        printf("[1] - Inserir no inicio: \n");
+        printf("[2] - Inserir no fim: \n");
+        printf("[3] - Remover no inicio: \n");
+        printf("[4] - Remover no fim: \n");
+        printf("[5] - Exibir a lista: \n");
+        printf("[6] - Procurar e substituir um valor especifico: \n");
+        printf("[0] - Sair: \n");
+        scanf("%i", &op);
+        switch(op){
+            case 1:
+                printf("Digite o valor a ser inserido: ");
+                scanf("%i", &valor);
+                inserirInicio(l, valor);
+                exibir(l);
+                break;
+            case 2:
+                printf("Digite o valor a ser inserido: ");
+                scanf("%i", &valor);
+                inserirFim(l, valor);
+                exibir(l);
+                break;
+            case 3:
+                removerInicio(l);
+                exibir(l);
+                break;
+            case 4:
+                removerFim(l);
+                exibir(l);
+                break;
+            case 5:
+                exibir(l);
+                break;
+            case 6:
+                printf("Digite o valor o valor que quer substituir: ");
+                scanf("%i", &valor);
+                printf("Digite o valor o valor que vai substitui-lo: ");
+                scanf("%i", &valor_novo);
+                atualizar(l, valor, valor_novo);
+                exibir(l);
+                break;
+            case 0:
+                destruir(l);
+                printf("Programa Finalizado\n");
+                break;
+            default:
+                printf("Opcao invalida, tente novamente\n");
+        }
+    system("pause");
+    system("cls");
+    }while(op != 0);
 }
